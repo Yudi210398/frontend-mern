@@ -1,0 +1,25 @@
+import React from "react";
+import { useHttp } from "../../shared/components/util/http-hook";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import EditPlace from "../components/EditPlace.js";
+import { useParams } from "react-router-dom";
+function EditData() {
+  const { tempatId } = useParams();
+  const { sendRequest } = useHttp();
+  const [data, setData] = useState([]);
+  const creatorId = useSelector((state) => state.loginShow.userId);
+  useEffect(() => {
+    const fetchData = async () => {
+      const getData = await sendRequest(
+        `http://localhost:5000/api/places/user/${creatorId}`
+      );
+      await setData(getData.dataPlace);
+    };
+    fetchData();
+  }, [sendRequest, creatorId]);
+  const hasilnya = data.filter((datas) => datas._id.toString() === tempatId);
+  return <EditPlace dataItems={hasilnya} />;
+}
+
+export default EditData;
