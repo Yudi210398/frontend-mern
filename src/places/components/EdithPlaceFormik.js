@@ -1,13 +1,14 @@
 import React, { Fragment, useRef } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { Form, Formik, ErrorMessage } from "formik";
+import { Form, Formik } from "formik";
 import FormikControl from "../../FormikForm/FormikControl";
 import { useState } from "react";
-import TextError from "../../FormikForm/TextError";
 import ImagePriview from "../../shared/components/ImagePriview";
+import * as Yup from "yup";
 import { useHttp } from "../../shared/components/util/http-hook";
-import { Alert } from "bootstrap";
+import { Alert } from "react-bootstrap";
+import { FORMATIMAGES } from "../../auth/regsiter/RegisterAuth";
 function EdithPlaceFormik(props) {
   const {
     errorValidate,
@@ -30,7 +31,19 @@ function EdithPlaceFormik(props) {
   const validationSchema = yup.object().shape({
     namaTempat: yup.string().required("*penting Harus Diisi"),
     deskripsi: yup.string().required("penting").min(5),
-    photo: yup.string().required("* penting Harus Diisi"),
+    photo: Yup.mixed()
+      .nullable()
+      .required()
+      .test(
+        "FILE_SIZE",
+        "File terlalu besar",
+        (value) => !value || (value && value.size <= 1024 * 1024)
+      )
+      .test(
+        "FILE_FORMAT",
+        "Format tidak sesuai, harus gambar",
+        (value) => !value || (value && FORMATIMAGES.includes(value?.type))
+      ),
   });
 
   const onSubmit = async (values) => {

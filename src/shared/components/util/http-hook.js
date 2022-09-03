@@ -11,12 +11,14 @@ export function useHttp() {
           body,
           headers,
         });
+        console.log(response.ok);
 
         const responseData = await response.json();
         if (!response.ok || response.status === 500)
           throw new Error(responseData.error.pesan);
         return responseData;
       } catch (err) {
+        console.log(err);
         throw err;
       }
     },

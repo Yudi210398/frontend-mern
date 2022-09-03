@@ -26,7 +26,7 @@ function ListItemIdUser(props) {
           {hasil && (
             <Link
               className="tombol btn bg-warning"
-              to={`/place/edit/${props._id}`}
+              to={`/place/edit/formik/${props._id}`}
             >
               Edit Data
             </Link>

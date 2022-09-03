@@ -26,17 +26,9 @@ function ListItemPlaces(props) {
           {data && (
             <Link
               className="tombol btn bg-warning"
-              to={`/place/edit/${props._id}`}
-            >
-              Edit Data
-            </Link>
-          )}
-          {data && (
-            <Link
-              className="tombol btn bg-success"
               to={`/place/edit/formik/${props._id}`}
             >
-              Edit Data Formik
+              Edit Data
             </Link>
           )}
 

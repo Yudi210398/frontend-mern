@@ -48,6 +48,7 @@ function LoginForm() {
       onLogin(hasilss.userId);
       navigate("/", { replace: true });
     } catch (err) {
+      console.log(err);
       setErrorValidate(true);
       setErorrPesan(err.message);
     }

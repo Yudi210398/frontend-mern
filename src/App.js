@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import LoginAuth from "./auth/login/LoginAuth.js";
 import RegisterAuth from "./auth/regsiter/RegisterAuth";
-import EditData from "./places/pages/EditData.js";
 import MyPlaces from "./places/pages/MyPlaces.js";
 import Places from "./places/pages/Places.js";
 import Barnavbar from "./shared/components/Barnavbar.js";
@@ -20,7 +19,6 @@ function App() {
         <Route path="/user" element={<Users />} />;
         <Route path="/places" element={<MyPlaces />} />
         <Route path="/place/new" element={<Places />} />
-        <Route path="/place/edit/:tempatId" element={<EditData />} />
         <Route
           path="/place/edit/formik/:tempatId"
           element={<EditDataFormik />}
