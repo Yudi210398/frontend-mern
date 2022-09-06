@@ -24,7 +24,9 @@ function Places() {
     deskripsi: "",
     photo: "",
   };
-  const creatorId = useSelector((state) => state.loginShow.userId);
+
+  const token = useSelector((state) => state.loginShow.Login);
+
   const validationSchema = Yup.object({
     namaTempat: Yup.string().required("Harus di isi"),
     deskripsi: Yup.string()
@@ -52,8 +54,9 @@ function Places() {
       formData.append("namaTempat", values.namaTempat);
       formData.append("deskripsi", values.deskripsi);
       formData.append("gambar", values.photo);
-      formData.append("creatorId", creatorId);
-      await sendRequest("http://localhost:5000/api/places", "POST", formData);
+      await sendRequest("http://localhost:5000/api/places", "POST", formData, {
+        Authorization: `Dog ${token}`,
+      });
       navigate("/places", { replace: true });
     } catch (err) {
       setErrorValidate(true);

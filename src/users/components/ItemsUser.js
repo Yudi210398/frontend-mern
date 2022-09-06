@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./itemCard.css";
 function ItemsUser(props) {
-  console.log(props.gambar);
   return (
     <div className="col-3">
       <div className="flip-card">

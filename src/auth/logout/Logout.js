@@ -19,6 +19,7 @@ function Logout(props) {
           label: "Yes",
           onClick: () => {
             dispatch(isLogout());
+            localStorage.removeItem("userData");
             navigate("/auth/login", { replace: true });
           },
         },

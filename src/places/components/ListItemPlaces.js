@@ -40,6 +40,7 @@ function ListItemPlaces(props) {
               pesanbody={props.namaTempat}
               onDelete={props.onDeletePlace}
               _id={props._id}
+              onDeleteError={props.deleteOnError}
             />
           )}
         </Card.Body>

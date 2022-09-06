@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import { useHttp } from "../shared/components/util/http-hook";
 function LoginForm() {
+  const tokenExpirationDate = new Date().getTime() + 1000 * 63 * 60;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -17,7 +18,7 @@ function LoginForm() {
     setErorrPesan,
     errorPesan,
   } = useHttp();
-  const onLogin = (userid) => dispatch(isLogin(userid));
+  const onLogin = (userId, token) => dispatch(isLogin({ userId, token }));
 
   const initialValues = {
     email: "",
@@ -44,8 +45,15 @@ function LoginForm() {
           "Content-Type": "application/json",
         }
       );
-      console.log(hasilss);
-      onLogin(hasilss.userId);
+      onLogin(hasilss.userId, hasilss.token);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          id: hasilss.userId,
+          token: hasilss.token,
+          waktuExpied: tokenExpirationDate,
+        })
+      );
       navigate("/", { replace: true });
     } catch (err) {
       console.log(err);

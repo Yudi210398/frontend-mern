@@ -9,7 +9,9 @@ import * as Yup from "yup";
 import { useHttp } from "../../shared/components/util/http-hook";
 import { Alert } from "react-bootstrap";
 import { FORMATIMAGES } from "../../auth/regsiter/RegisterAuth";
+import { useSelector } from "react-redux";
 function EdithPlaceFormik(props) {
+  const token = useSelector((state) => state.loginShow.Login);
   const {
     errorValidate,
     sendRequest,
@@ -57,10 +59,14 @@ function EdithPlaceFormik(props) {
       await sendRequest(
         `http://localhost:5000/api/places/${idplace}`,
         "PATCH",
-        formData
+        formData,
+        {
+          Authorization: `Dog ${token}`,
+        }
       );
       navigate("/places", { replace: true });
     } catch (err) {
+      console.log(err);
       setErrorValidate(true);
       setErorrPesan(err.message);
     }
@@ -91,7 +97,6 @@ function EdithPlaceFormik(props) {
               enableReinitialize={true}
             >
               {(formik) => {
-                console.log(formik.values.photo);
                 return (
                   <Form>
                     <FormikControl

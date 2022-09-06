@@ -25,7 +25,6 @@ function MyPlaces() {
   }
 
   const onDeleteTempat = (dataId) => {
-    console.log(data);
     navigate(`/placesId/${data._id}`, { replace: true });
   };
 
